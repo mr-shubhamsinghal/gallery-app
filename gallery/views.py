@@ -8,15 +8,23 @@ from gallery.utils import make_pages
 
 def home(request):
 	tag_list = TagClass.objects.all()
-	context = {'tags': tag_list}
+	image_list = ImageClass.objects.all()
+	page = json.loads(request.GET.get('page', '1'))
+	images = load_pages(image_list, page)
+	context = {'tags': tag_list, 'images': images}
 	return render(request, 'home.html', context)
 
 
-def load_images(request):
-	image_list = ImageClass.objects.all()
-	page = json.loads(request.GET.get('page', '1'))
+def load_pages(data_list, page):
 	page_size = 8
-	images = make_pages(page, image_list, page_size)
+	images = make_pages(page, data_list, page_size)
+	return images
+
+
+def load_images(request):
+	page = json.loads(request.GET.get('page', '1'))
+	image_list = ImageClass.objects.all()
+	images = load_pages(image_list, page)
 	context = {'images': images}
 	return render(request, 'gallery.html', context)
 
@@ -35,9 +43,8 @@ def add_images(request):
 
 
 def filter_by_tags(request, name):
-	page = request.GET.get('page', 1)
-	page_size = 8
+	page = json.loads(request.GET.get('page', '1'))
 	image_list = ImageClass.objects.filter(tags__tag_name=name)
-	images = make_pages(page, image_list, page_size)
+	images = load_pages(image_list, page)
 	context = {'images': images}
 	return render(request, 'gallery.html', context)

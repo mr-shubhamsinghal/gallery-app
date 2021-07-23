@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="row">
 	{% for item in images %}
 		<div class="col-3 g-4">
@@ -35,15 +37,26 @@
 </div>
 {% endif %}
 
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script>
+
 	$('.page-number').on('click', function(e) {
-		e.preventDefault()
 		var p_num = $(this).attr('data-pageid');
-		$.ajax({
-			url: "{% url 'gallery:load-images' %}",
-			data: {page: JSON.stringify(p_num)},
-		}).done(function(res) {
-			$('#gallery').html(res);
-		})
+		if (tag_filter == 0) {
+			$.ajax({
+				url: "{% url 'gallery:load-images' %}",
+				data: {page: p_num},
+			}).done(function(res) {
+				$('#gallery').html(res);
+			})
+		} else {
+			$.ajax({
+				url: '/tag/' + tag_name,
+				data: {page: p_num},
+			}).done(function(res) {
+				$('#gallery').html(res);
+			})
+		}
 	});
 </script>
+
