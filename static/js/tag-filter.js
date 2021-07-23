@@ -13,3 +13,8 @@ $('.tag-class').click(function(e) {
 		$('#gallery').html(res);
 	});
 });
+
+$('#clear-tag').click(function(e) {
+	$('.tag-class').removeClass('btn-dark');
+	window.location.reload('/');
+});

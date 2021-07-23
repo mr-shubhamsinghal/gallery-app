@@ -52,8 +52,8 @@
 		<div class="row align-items-center position-relative">
 			<div class="col-2">
 				<div class="position-absolute top-0">
-					<h2>Tags</h2>
-					<br>
+					<button type="button" id="clear-tag" class="btn btn-primary">Clear Tags</button>
+					<br><br>
 					{% for tag in tags %}
 						<button type="button" class="btn btn-light tag-class">{{ tag.tag_name }}</button>
 						<br><br>
