@@ -52,3 +52,8 @@ def filter_by_tags(request):
 	images = load_pages(image_list, page)
 	context = {'images': images}
 	return render(request, 'gallery.html', context)
+
+
+def image_preview(request, image_url):
+	context = {'image_url': image_url}
+	return render(request, 'image_preview.html', context)

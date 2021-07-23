@@ -3,7 +3,7 @@
 <div class="row">
 	{% for item in images %}
 		<div class="col-3 g-4">
-			<img class="card-img-top" src={{ item.image.url }} height="200" width="200" alt="">
+			<a href="{% url 'gallery:image-preview' image_url=item.image.url %}" target="_blank"><img class="card-img-top" src={{ item.image.url }} height="200" width="200" alt=""></a>
 		</div>
 	{% endfor %}
 </div>
