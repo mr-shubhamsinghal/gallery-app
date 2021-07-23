@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block body_block %}
 	<div class="container">
 		<div class="row align-items-center">
@@ -58,4 +60,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block custom_script %}
+	<script src="{% static 'js/tag-filter.js' %}"></script>
 {% endblock %}

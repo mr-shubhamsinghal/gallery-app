@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block body_block %}
 	<div class="row">
 		<div class="col">
-			<img src="{{ image_url }}" alt="">
+			<img id="rimg" src="{{ image_url }}" alt="">
 		</div>
 	</div>
+	<div class="row">
+		<div class="col">
+			<button type="button" id="img-rotate" class="btn btn-dark">Rotate</button>
+		</div>
+	</div>
+{% endblock %}
+
+{% block custom_script %}
+	<script src="{% static 'js/jQueryRotate.js' %}"></script>
+	<script src="{% static 'js/rotate.js' %}"></script>
 {% endblock %}
