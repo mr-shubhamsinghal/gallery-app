@@ -51,8 +51,9 @@
 			})
 		} else {
 			$.ajax({
-				url: '/tag/' + tag_name,
-				data: {page: p_num},
+				url: '/tag',
+				data: {page: p_num,
+				      tag_list: JSON.stringify(tags_list)},
 			}).done(function(res) {
 				$('#gallery').html(res);
 			})

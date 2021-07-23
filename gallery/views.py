@@ -42,9 +42,13 @@ def add_images(request):
 	return redirect('/')
 
 
-def filter_by_tags(request, name):
+def filter_by_tags(request):
+	tag_list = json.loads(request.GET.get('tag_list', []))
 	page = json.loads(request.GET.get('page', '1'))
-	image_list = ImageClass.objects.filter(tags__tag_name=name)
+	image_list = ImageClass.objects.filter(tags__tag_name=tag_list[0])
+	n = len(tag_list)
+	for index in range(1, n):
+		image_list = image_list.filter(tags__tag_name=tag_list[index])
 	images = load_pages(image_list, page)
 	context = {'images': images}
 	return render(request, 'gallery.html', context)
