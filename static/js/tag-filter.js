@@ -7,9 +7,9 @@ $('.tag-class').click(function(e) {
 	});
 });
 
-$('.page-number').click(function(e) {
-	var p_num = $(this).text();
-	$.ajax({
-		url:  
-	})
-})
+// $('.page-number').click(function(e) {
+// 	var p_num = $(this).text();
+// 	$.ajax({
+// 		url:  
+// 	})
+// })

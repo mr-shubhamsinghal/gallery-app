@@ -11,7 +11,7 @@
 	  <ul class="pagination justify-content-center">
 	  	{% if images.has_previous %}
     		<li class="page-item">
-		      <a class="page-link" href="?page={{ images.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+		      <p class="page-link page-number" data-pageid="{{ images.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</p>
 		    </li>
     	{% else %}
     		<li class="page-item disabled">
@@ -19,11 +19,11 @@
     		</li>
 	    {% endif %}
 	    {% for i in images.paginator.page_range %}
-	    	<li class="page-item {% if images.number == i %} active {% endif %}"><a class="page-link page-number" href="?page={{ i }}">{{ i }}</a></li>
+	    	<li class="page-item {% if images.number == i %} active {% endif %}"><p class="page-link page-number" data-pageid="{{ i }}">{{ i }}</p></li>
 	    {% endfor %}
 	    {% if images.has_next %}
 		    <li class="page-item">
-		      <a class="page-link" href="?page={{ images.next_page_number }}">Next</a>
+		      <p class="page-link page-number" data-pageid="{{ images.next_page_number }}">Next</p>
 		    </li>
 	    {% else %}
 	    	<li class="page-item disabled">
@@ -34,3 +34,16 @@
 	</nav>
 </div>
 {% endif %}
+
+<script>
+	$('.page-number').on('click', function(e) {
+		e.preventDefault()
+		var p_num = $(this).attr('data-pageid');
+		$.ajax({
+			url: "{% url 'gallery:load-images' %}",
+			data: {page: JSON.stringify(p_num)},
+		}).done(function(res) {
+			$('#gallery').html(res);
+		})
+	});
+</script>
