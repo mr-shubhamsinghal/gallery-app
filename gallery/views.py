@@ -2,8 +2,9 @@
 import json
 
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from gallery.models import ImageClass, TagClass
-from gallery.utils import make_pages
+from gallery.utils import make_pages, image_rotate
 
 
 def home(request):
@@ -57,3 +58,10 @@ def filter_by_tags(request):
 def image_preview(request, image_url):
 	context = {'image_url': image_url}
 	return render(request, 'image_preview.html', context)
+
+
+def rotate_image(request):
+	angle = json.loads(request.GET.get('angle'))
+	image_url = request.GET.get('image_url')
+	image_rotate(image_url, angle)
+	return HttpResponse('')
