@@ -2,7 +2,7 @@
 import json
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import JsonResponse
 from gallery.models import ImageClass, TagClass
 from gallery.utils import make_pages, image_rotate
 
@@ -63,5 +63,8 @@ def image_preview(request, image_url):
 def rotate_image(request):
 	angle = json.loads(request.GET.get('angle'))
 	image_url = request.GET.get('image_url')
-	image_rotate(image_url, angle)
-	return HttpResponse('')
+	try:
+		image_rotate(image_url, angle)
+	except Exception as e:
+		return JsonResponse({'msg': 'failed to saved rotated image.'})
+	return JsonResponse({'msg': 'success to save.'})
